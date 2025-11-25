@@ -17,8 +17,9 @@
 # Reference documentation
 
 ```{toctree}
-:maxdepth: 1
-
+---
+maxdepth: 1
+---
 reference/config_base.md
 reference/benchmark_and_performance.md
 reference/jax_xla_and_pallas.md

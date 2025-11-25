@@ -15,6 +15,7 @@
  -->
 
 (full-finetuning)=
+
 # Example: Full finetuning LLama3-7B model
 
 MaxText can perform pre-training and full finetuning. To perform full fine
@@ -25,6 +26,7 @@ Following is the parameter to assign a checkpoint to the training script.
 - `load_parameters_path`: Path to the checkpoint directory
 
 The high level steps involve:
+
 - Converting the model checkpoints to MaxText formatted checkpoints
 - Preparing the dataset so that data can be fed into the training script.
   MaxText provides sample pipelines to load the data via tf.data or Pygrain from
@@ -49,8 +51,8 @@ python3 -m MaxText.utils.ckpt_scripts.llama_or_mistral_ckpt --base-model-path <p
 
 The conversion scripts do not use accelerators but need large host memory to perform the conversion.
 
-- The base model checkpoints should be in the format `{name}.{chkpt_idx}.pth` 
-    - For example: `mistral-7b.00.pth`
+- The base model checkpoints should be in the format `{name}.{chkpt_idx}.pth`
+  - For example: `mistral-7b.00.pth`
 - For large size model (e.g. 70B model), this script requires large memory VM.
 - The script load and save weights in a single pass.
 
@@ -87,7 +89,7 @@ MaxText provides examples to work with [Common Crawl](https://commoncrawl.org/).
 You need to run these steps once per project prior to any local development or cluster experiments.
 
 1. Create two gcs buckets in your project, one for downloading and retrieving the dataset and the other for storing the logs.
-2. Download the dataset in your gcs bucket
+1. Download the dataset in your gcs bucket
 
 MaxText assumes these GCS buckets are created in the same project and that it has permissions to read and write from them:
 

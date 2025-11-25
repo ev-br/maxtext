@@ -1,27 +1,27 @@
-
-
 # Multimodal Support on MaxText
 
 This document provides a guide to use the multimodal functionalities in MaxText including:
+
 - **Checkpoint Conversion**: Convert a MaxText-compatible orbax checkpoint from HuggingFace.
 - **Multimodal Decode**: Inference with text+images as input.
 - **Supervised Fine-Tuning (SFT)**: Apply SFT to the model using a visual-question-answering dataset.
 
 We also provide a [colab](https://github.com/AI-Hypercomputer/maxtext/blob/main/src/MaxText/examples/multimodal_gemma3_demo.ipynb) for multimodal features demonstration. The following table provides a list of models and modalities we currently support:
-| Models | Input Modalities | Output Modalities |
-| :---- | :---- | :---- |
-| - Gemma3-4B/12B/27B<br>- Llama4-Scout/Maverick | Text, images | Text |
+
+| Models                                         | Input Modalities | Output Modalities |
+| :--------------------------------------------- | :--------------- | :---------------- |
+| - Gemma3-4B/12B/27B<br>- Llama4-Scout/Maverick | Text, images     | Text              |
 
 ## Introduction
 
-Multimodal Large Language Models (LLMs) extend traditional text-only models by incorporating multiple input modalities such as images, audio, and video. For each non-text modality, the architecture typically follows a three-stage pipeline: 
+Multimodal Large Language Models (LLMs) extend traditional text-only models by incorporating multiple input modalities such as images, audio, and video. For each non-text modality, the architecture typically follows a three-stage pipeline:
+
 - **Data Preprocessing**: We apply modality-specific preprocessing steps to prepare the raw input data (e.g., image resizing and normalization), transforming them into a format which neural networks can understand.
 - **Modality-Specific Encoders**: Modality-specific encoders will transform the preprocessed data into high-dimensional representations (e.g., vision transformers for images).
 - **Projection and Merge**: Projection layers will map these modality-specific embeddings into the shared embedding space of the language model, usually aligned with the dimension of text embeddings. These projected embeddings are then merged with text token embeddings, allowing the unified model to process and reason over multiple modalities simultaneously within a single coherent framework.
 
 ![Illustration of multimodal MaxText.](../_static/multimodal_overview.png)
 *Figure 1: Overview of multimodal dataflow in MaxText.*
-
 
 ## Checkpoint Conversion
 
@@ -51,7 +51,9 @@ python -m MaxText.utils.ckpt_scripts.llama4_ckpt_unscanned \
 ```
 
 ## Multimodal Decode
+
 MaxText supports multimodal decoding, allowing you to input text with multiple images to get a text output. To use this feature, you need three main settings:
+
 - `use_multimodal=True`: Initializes the multimodal preprocessing steps and network components.
 - `prompt`: Specifies the position of image placeholder tokens in your input. If you don't manually place them, MaxText will automatically append the required placeholder (e.g., `<start_of_image>` for Gemma3, `<|image|>` for Llama4). The exact placeholder is listed under the `image_placeholder` field in each model's configuration file.
 - `image_path`: The path(s) to the image file(s) MaxText will load and process.
@@ -82,6 +84,7 @@ python -m MaxText.decode \
 ```
 
 The decoding results will look like this:
+
 ```
 Input `<start_of_turn>user
 Describe image <start_of_image><end_of_turn>
@@ -111,7 +114,6 @@ Supervised Fine-Tuning (SFT) of multimodal LLMs in MaxText focuses specifically 
 
 Here, we use [ChartQA](https://huggingface.co/datasets/HuggingFaceM4/ChartQA) as an example to demonstrate SFT functionality:
 
-
 ```shell
 python -m MaxText.sft_trainer \
     $MAXTEXT_REPO_ROOT/configs/sft-vision-chartqa.yml \
@@ -135,14 +137,16 @@ python -m MaxText.sft_trainer \
 ```
 
 ## Other Recommendations
-- **Setting appropriate prefill length**: To prevent truncation and ensure your full input (text + image) is processed, the prefill length should be set longer than the total combined length of your text tokens and image tokens. This combined length makes up the final sequence fed to the decoder. We recommend to estimate the combined sequence length from your full input and then add a buffer when setting your `max_prefill_predict_length` for decoding. Token estimation rules:
-    - For text tokens, a good estimate is:
-        
-        $\text{Text Tokens} \approx 1.3 \times \text{Number of Words in Prompt}$.
-    - For Gemma3, each image is resized to 896*896 and contributes 256 tokens: 
-        
-        $\text{Total Tokens} \approx \text{Text Tokens} + \text{Number of Images} * 256$.
-    - For Llama4 models, each image is dynamically tiled based on its size, with each resulting tile contributing 144 tokens:
-        
-        $\text{Total Tokens} \approx \text{Text Tokens} + 144 \times \sum_{i=1}^{N} \text{Number of Tiles of Image}_i$.
 
+- **Setting appropriate prefill length**: To prevent truncation and ensure your full input (text + image) is processed, the prefill length should be set longer than the total combined length of your text tokens and image tokens. This combined length makes up the final sequence fed to the decoder. We recommend to estimate the combined sequence length from your full input and then add a buffer when setting your `max_prefill_predict_length` for decoding. Token estimation rules:
+  - For text tokens, a good estimate is:
+
+    $\\text{Text Tokens} \\approx 1.3 \\times \\text{Number of Words in Prompt}$.
+
+  - For Gemma3, each image is resized to 896\*896 and contributes 256 tokens:
+
+    $\\text{Total Tokens} \\approx \\text{Text Tokens} + \\text{Number of Images} * 256$.
+
+  - For Llama4 models, each image is dynamically tiled based on its size, with each resulting tile contributing 144 tokens:
+
+    $\\text{Total Tokens} \\approx \\text{Text Tokens} + 144 \\times \\sum\_{i=1}^{N} \\text{Number of Tiles of Image}\_i$.

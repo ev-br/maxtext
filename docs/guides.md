@@ -17,8 +17,9 @@
 # How-to Guides
 
 ```{toctree}
-:maxdepth: 1
-
+---
+maxdepth: 1
+---
 guides/checkpointing_solutions.md
 guides/custom_model.md
 guides/gcp_workload_observability.md

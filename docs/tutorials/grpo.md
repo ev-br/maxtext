@@ -26,7 +26,8 @@ And we use vLLM as the library for efficient model inference and generation.
 In this tutorial we use a single host TPUVM such as `v6e-8/v5p-8`. Let's get started!
 
 ## Create virtual environment and Install MaxText dependencies
-Follow instructions in [Install MaxText](https://github.com/AI-Hypercomputer/maxtext/blob/main/docs/guides/install_maxtext.md), but 
+
+Follow instructions in [Install MaxText](https://github.com/AI-Hypercomputer/maxtext/blob/main/docs/guides/install_maxtext.md), but
 recommend creating the virtual environment outside the `maxtext` directory.
 
 ## vLLM and tpu-inference installations
@@ -63,6 +64,6 @@ python3 -m src.MaxText.rl.train_rl src/MaxText/configs/rl.yml \
 The overview of the what this run will do is as follows:
 
 1. We load a policy model and a reference model. Both are copies of `Llama3.1-8b-Instruct`.
-2. Evaluate the policy model's performance on GSM8K math reasoning benchmark.
-3. Train the policy model using GRPO.
-4. Evaluate the policy model's performance on GSM8K math reasoning benchmark after the post-training with GRPO.
+1. Evaluate the policy model's performance on GSM8K math reasoning benchmark.
+1. Train the policy model using GRPO.
+1. Evaluate the policy model's performance on GSM8K math reasoning benchmark after the post-training with GRPO.

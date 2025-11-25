@@ -15,6 +15,7 @@
  -->
 
 # Supervised Fine-Tuning (SFT) on Single-Host TPUs
+
 Supervised fine-tuning (SFT) is a process where a pre-trained large language model is fine-tuned on a labeled dataset to adapt the model to perform better on specific tasks.
 
 This tutorial demonstrates step-by-step instructions for setting up the environment and then training the model on a Hugging Face dataset using SFT.
@@ -24,6 +25,7 @@ We use [Tunix](https://github.com/google/tunix), a JAX-based library designed fo
 In this tutorial we use a single host TPU VM such as `v6e-8/v5p-8`. Let's get started!
 
 ## Install dependencies
+
 ```sh
 # 1. Clone the repository
 git clone https://github.com/AI-Hypercomputer/maxtext.git
@@ -63,9 +65,11 @@ export TRAIN_DATA_COLUMNS=<data columns to train on> # e.g., ['messages']
 ```
 
 ## Get your model checkpoint
+
 This section explains how to prepare your model checkpoint for use with MaxText. You have two options: using an existing MaxText checkpoint or converting a Hugging Face checkpoint.
 
 ### Option 1: Using an existing MaxText checkpoint
+
 If you already have a MaxText-compatible model checkpoint, simply set the following environment variable and move on to the next section.
 
 ```sh
@@ -73,6 +77,7 @@ export PRE_TRAINED_MODEL_CKPT_PATH=<gcs path for MaxText checkpoint> # e.g., gs:
 ```
 
 ### Option 2: Converting a Hugging Face checkpoint
+
 If your model checkpoint is from Hugging Face, you need to run a conversion script to make it MaxText-compatible.
 
 1. **Set the Output Path:** First, define where the new MaxText checkpoint will be saved.
@@ -94,6 +99,7 @@ python3 -m MaxText.utils.ckpt_conversion.to_maxtext src/MaxText/configs/base.yml
 ```
 
 ## Run SFT on Hugging Face Dataset
+
 Now you are ready to run SFT using the following command:
 
 ```sh
@@ -111,4 +117,5 @@ python3 -m MaxText.sft.sft_trainer src/MaxText/configs/sft.yml \
     train_data_columns=${TRAIN_DATA_COLUMNS} \
     profiler=xplane
 ```
+
 Your fine-tuned model checkpoints will be saved here: `$BASE_OUTPUT_DIRECTORY/$RUN_NAME/checkpoints`.

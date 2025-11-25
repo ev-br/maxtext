@@ -17,8 +17,9 @@
 # Explanations
 
 ```{toctree}
-:maxdepth: 1
-
+---
+maxdepth: 1
+---
 explanations/checkpoints.md
 explanations/alternatives.md
 explanations/jax_ai_libraries_chosen.md

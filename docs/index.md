@@ -28,13 +28,13 @@ Check out our [Read The Docs site](https://maxtext.readthedocs.io/en/latest/) or
 
 ## 🔥 Latest news 🔥
 
-* [September 5, 2025] MaxText has moved to an `src` layout as part of [RESTRUCTURE.md](https://github.com/AI-Hypercomputer/maxtext/blob/main/RESTRUCTURE.md).
-* [August 13, 2025] The Qwen3 2507 MoE family of models is now supported: MoEs: 235B Thinking & 280B Coder as well as existing dense models: 0.6B, 4B, 8B, 14B, and 32B.
-* [July 27, 2025] Updated TFLOPS/s calculation ([PR](https://github.com/AI-Hypercomputer/maxtext/pull/1988)) to account for causal attention, dividing the attention flops in half. Accounted for sliding window and chunked attention reduced attention flops in [PR](https://github.com/AI-Hypercomputer/maxtext/pull/2009) and [PR](https://github.com/AI-Hypercomputer/maxtext/pull/2030). Changes impact large sequence configs, as explained in this [doc](https://github.com/AI-Hypercomputer/maxtext/blob/main/docs/guides/performance_metrics.md)
-* [July 16, 2025] We will be restructuring the MaxText repository for improved organization and clarity. Please review the [proposed structure](https://github.com/AI-Hypercomputer/maxtext/blob/main/RESTRUCTURE.md) and provide feedback.
-* [July 11, 2025] Multi-Token Prediction (MTP) training support\! Adds an auxiliary loss based on predicting multiple future tokens, inspired by [DeepSeek-V3 paper](https://arxiv.org/html/2412.19437v1), to enhance training efficiency.
-* [June 25, 2025] DeepSeek R1-0528 variant is now supported
-* [April 24, 2025] Llama 4 Maverick models are now supported
+- [September 5, 2025] MaxText has moved to an `src` layout as part of [RESTRUCTURE.md](https://github.com/AI-Hypercomputer/maxtext/blob/main/RESTRUCTURE.md).
+- [August 13, 2025] The Qwen3 2507 MoE family of models is now supported: MoEs: 235B Thinking & 280B Coder as well as existing dense models: 0.6B, 4B, 8B, 14B, and 32B.
+- [July 27, 2025] Updated TFLOPS/s calculation ([PR](https://github.com/AI-Hypercomputer/maxtext/pull/1988)) to account for causal attention, dividing the attention flops in half. Accounted for sliding window and chunked attention reduced attention flops in [PR](https://github.com/AI-Hypercomputer/maxtext/pull/2009) and [PR](https://github.com/AI-Hypercomputer/maxtext/pull/2030). Changes impact large sequence configs, as explained in this [doc](https://github.com/AI-Hypercomputer/maxtext/blob/main/docs/guides/performance_metrics.md)
+- [July 16, 2025] We will be restructuring the MaxText repository for improved organization and clarity. Please review the [proposed structure](https://github.com/AI-Hypercomputer/maxtext/blob/main/RESTRUCTURE.md) and provide feedback.
+- [July 11, 2025] Multi-Token Prediction (MTP) training support! Adds an auxiliary loss based on predicting multiple future tokens, inspired by [DeepSeek-V3 paper](https://arxiv.org/html/2412.19437v1), to enhance training efficiency.
+- [June 25, 2025] DeepSeek R1-0528 variant is now supported
+- [April 24, 2025] Llama 4 Maverick models are now supported
 
 ## Use cases
 
@@ -42,7 +42,7 @@ MaxText provides a library of models and demonstrates how to perform pre-trainin
 
 ### Pre-training
 
-If you’re building models from scratch, MaxText can serve as a reference implementation for experimentation, ideation, and inspiration \- just fork and modify MaxText to train your model, whether it’s a small dense model like Llama 8B, or a large MoE like DeepSeek-V3. Experiment with configs and model design to build the most efficient model on TPU or GPU.
+If you’re building models from scratch, MaxText can serve as a reference implementation for experimentation, ideation, and inspiration - just fork and modify MaxText to train your model, whether it’s a small dense model like Llama 8B, or a large MoE like DeepSeek-V3. Experiment with configs and model design to build the most efficient model on TPU or GPU.
 
 MaxText provides opinionated implementations for how to achieve optimal performance across a wide variety of dimensions like sharding, quantization, and checkpointing.
 
@@ -50,16 +50,16 @@ MaxText provides opinionated implementations for how to achieve optimal performa
 
 If you are post-training a model, whether it is proprietary or open source, MaxText provides a scalable framework using Tunix. For RL (like GRPO), we leverage vLLM for sampling and Pathways (soon) for multi-host.
 
-Our goal is to provide a variety of models (dimension “a”) and techniques (dimension “b”), so you can easily explore (a) \* (b) combinations and efficiently train the perfect model for your use case.
+Our goal is to provide a variety of models (dimension “a”) and techniques (dimension “b”), so you can easily explore (a) * (b) combinations and efficiently train the perfect model for your use case.
 
 Check out these getting started guides:
 
-* Supervised Fine Tuning (SFT)
-  * [SFT on Single-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/sft.html)
-  * [SFT on Multi-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/sft_on_multi_host.html)
-* Group Relative Policy Optimization (GRPO)
-  * [GRPO on Single-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/grpo.html)
-  * [GRPO on Multi-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/grpo_with_pathways.html)
+- Supervised Fine Tuning (SFT)
+  - [SFT on Single-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/sft.html)
+  - [SFT on Multi-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/sft_on_multi_host.html)
+- Group Relative Policy Optimization (GRPO)
+  - [GRPO on Single-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/grpo.html)
+  - [GRPO on Multi-Host TPUs](https://maxtext.readthedocs.io/en/latest/tutorials/grpo_with_pathways.html)
 
 ### Model library
 
@@ -69,37 +69,38 @@ We “tier” each model for how optimized it is in the MaxText framework for a 
 
 **Supported JAX models in MaxText**
 
-* Google
-  * Gemma 3 (4B, 12B, 27B)
-  * Gemma 2 (2B, 9B, 27B)
-  * Gemma 1 (2B, 7B)
-* Alibaba
-  * Qwen 3 MoE 2507 (235B, 480B)
-  * Qwen 3 MoE (30B, 235B)
-  * Qwen 3 Dense (0.6B, 1.7B, 4B, 8B, 14B, 32B)
-* DeepSeek
-  * DeepSeek-V2 (16B, 236B)
-  * DeepSeek-V3 0528 (671B)
-* Meta
-  * Llama 4 Scout (109B) & Maverick (400B)
-  * Llama 3.3 70B, 3.1 (8B, 70B, 405B), 3.0 (8B, 70B, 405B)
-  * Llama 2 (7B, 13B, 70B)
-* Open AI
-  * GPT3 (52k, 6B, 22B, 175B)
-* Mistral
-  * Mixtral (8x7B, 8x22B)
-  * Mistral (7B)
-* Diffusion Models
-  * See [MaxDiffusion](https://github.com/AI-Hypercomputer/maxdiffusion) (Wan 2.1, Flux, SDXL, etc)
+- Google
+  - Gemma 3 (4B, 12B, 27B)
+  - Gemma 2 (2B, 9B, 27B)
+  - Gemma 1 (2B, 7B)
+- Alibaba
+  - Qwen 3 MoE 2507 (235B, 480B)
+  - Qwen 3 MoE (30B, 235B)
+  - Qwen 3 Dense (0.6B, 1.7B, 4B, 8B, 14B, 32B)
+- DeepSeek
+  - DeepSeek-V2 (16B, 236B)
+  - DeepSeek-V3 0528 (671B)
+- Meta
+  - Llama 4 Scout (109B) & Maverick (400B)
+  - Llama 3.3 70B, 3.1 (8B, 70B, 405B), 3.0 (8B, 70B, 405B)
+  - Llama 2 (7B, 13B, 70B)
+- Open AI
+  - GPT3 (52k, 6B, 22B, 175B)
+- Mistral
+  - Mixtral (8x7B, 8x22B)
+  - Mistral (7B)
+- Diffusion Models
+  - See [MaxDiffusion](https://github.com/AI-Hypercomputer/maxdiffusion) (Wan 2.1, Flux, SDXL, etc)
 
 ## Get involved
 
 Please join our [Discord Channel](https://discord.com/invite/2H9PhvTcDU) and if you have feedback, you can file a feature request, documentation request, or bug report [here](https://github.com/AI-Hypercomputer/maxtext/issues/new/choose).
 
 ```{toctree}
-:maxdepth: 2
-:hidden:
-
+---
+maxdepth: 2
+hidden:
+---
 explanations.md
 guides.md
 reference.md
